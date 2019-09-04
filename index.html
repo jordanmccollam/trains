@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Train Schedule</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- ANCHOR Heading -->
+        <div class="jumbotron text-center">
+            <h1 class="display-2">All Aboard!</h1>
+        </div>
+
+        <!-- ANCHOR Schedule -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card border border-custom mb-4">
+                    <div class="card-header bg-custom">
+                        Current Train Schedule
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <p class="card-title">Train Name</p>
+                            </div>
+                            <div class="col-2">
+                                <p class="card-title">Destination</p>
+                            </div>
+                            <div class="col-2">
+                                <p class="card-title">Frequency (min)</p>
+                            </div>
+                            <div class="col-2">
+                                <p class="card-title">Next Arrival</p>
+                            </div>
+                            <div class="col-2">
+                                <p class="card-title">Minutes Away</p>
+                            </div>
+                        </div>
+                        
+                        <div id="trains-display"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ANCHOR Form -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card border border-custom mb-5">
+                    <div class="card-header bg-custom">
+                        Add Train
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="train-name">Train Name</label>
+                                <input type="text" class="form-control" id="train-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="destination">Destination</label>
+                                <input type="text" class="form-control" id="destination">
+                            </div>
+                            <div class="form-group">
+                                <label for="train-time">First Train Time (HH:mm - military time)</label>
+                                <input type="text" class="form-control" id="train-time">
+                            </div>
+                            <div class="form-group">
+                                <label for="frequency">Frequency</label>
+                                <input type="text" class="form-control" id="frequency">
+                            </div>
+                            <button type="submit" class="btn btn-custom" id="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    <!-- END of container -->
+    </div>
+
+<!-- MOMENTS JS -->
+<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+<!-- jQuery -->
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+<!-- JavaScript -->
+<script src="app.js"></script>
+</body>
+</html>

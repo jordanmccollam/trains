@@ -1,0 +1,29 @@
+.card-title,
+label {
+    font-weight: bolder;
+}
+
+.card-header {
+    font-weight: bolder;
+    color: white;
+}
+
+.jumbotron {
+    background: url(images/trainsketch.png) bottom;
+    background-size: cover;
+}
+
+.border-custom {
+    border-color: #b99d8b !important;
+}
+
+.bg-custom {
+    background-color: #b99d8b;
+}
+
+.btn-custom {
+    background-color: #b99d8b;
+}
+.btn-custom:hover {
+    background-color: #e1d9c3;
+}
