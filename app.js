@@ -15,9 +15,11 @@
         var database = firebase.database();  
 
 $(document).ready(function() {
+
     // Form submit --- add train
     $("#submit").on('click', function() {
         event.preventDefault();
+        // if ()
         var name = $("#train-name").val();
         var destination = $("#destination").val();
         var firstTrainTime = $("#train-time").val();
@@ -30,6 +32,7 @@ $(document).ready(function() {
             frequency: frequency,
             dateAdded: firebase.database.ServerValue.TIMESTAMP
         })
+
     });
 
     database.ref().on('child_added', function(childSnapshot){
@@ -64,11 +67,12 @@ $(document).ready(function() {
             "<div class='col-2'>" + childSnapshot.val().destination,
             "<div class='col-2'>" + childSnapshot.val().frequency,
             "<div class='col-2'>" + moment(nextTrain).format("hh:mm"),
-            "<div class='col-2'>" + tMinutesTillTrain
+            "<div class='col-2'>" + tMinutesTillTrain,
         )
 
         $("#trains-display").append(row);
     })
+
 
 // END OF JS
 });
