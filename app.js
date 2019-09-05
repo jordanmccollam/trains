@@ -1,37 +1,42 @@
-$(document).ready(function() {
-    // Default Train Timing
-    var tFrequencyD = 25;
-    var firstTimeD = "05:25";
-    var firstTimeConvertedD = moment(firstTimeD, "hh:mm").subtract(1, "years");
-    var currentTimeD = moment();
-    var diffTimeD = moment().diff(moment(firstTimeConvertedD), "minutes");
-    var tRemainderD = diffTimeD % tFrequencyD;
-    var tMinutesTillTrainD = tFrequencyD - tRemainderD;
-    var nextTrainD = moment().add(tMinutesTillTrainD, "minutes");
-    
-    // Where new trains will go
-    var allTrains = [
-        defaultTrain = {
-            name: "Billy's Choo Choo",
-            destination: "Funky Town",
-            frequency: 25,
-            nextArrival: moment(nextTrainD).format("hh:mm"),
-            minutesAway: tMinutesTillTrainD
-    },
-];
 
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBNlHs40h_Hflzka93Rmvzc6ulv5XzyGJI",
+            authDomain: "train-scheduling-693d1.firebaseapp.com",
+            databaseURL: "https://train-scheduling-693d1.firebaseio.com",
+            projectId: "train-scheduling-693d1",
+            storageBucket: "train-scheduling-693d1.appspot.com",
+            messagingSenderId: "1019862013000",
+            appId: "1:1019862013000:web:182eecab047674fa"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        var database = firebase.database();  
+
+$(document).ready(function() {
     // Form submit --- add train
     $("#submit").on('click', function() {
         event.preventDefault();
-        newtrain();
-    })
+        var name = $("#train-name").val();
+        var destination = $("#destination").val();
+        var firstTrainTime = $("#train-time").val();
+        var frequency = $("#frequency").val();
 
-    // Adding a train
-    function newtrain() {
+        database.ref().push({
+            name: name,
+            destination: destination,
+            firstTrainTime: firstTrainTime,
+            frequency: frequency,
+            dateAdded: firebase.database.ServerValue.TIMESTAMP
+        })
+    });
+
+    database.ref().on('child_added', function(childSnapshot){
         // Assumptions
-        var tFrequency = $("#frequency").val();
+        var tFrequency = childSnapshot.val().frequency;
         // Time is 3:30 AM
-        var firstTime = $("#train-time").val();
+        var firstTime = childSnapshot.val().firstTrainTime;
         // First Time (pushed back 1 year to make sure it comes before current time)
         var firstTimeConverted = moment(firstTime, "hh:mm").subtract(1, "years");
         console.log(firstTimeConverted);
@@ -51,46 +56,19 @@ $(document).ready(function() {
         var nextTrain = moment().add(tMinutesTillTrain, "minutes");
         console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 
-        // Make a new object for new train
-        newTrain = {
-            name: $("#train-name").val(),
-            destination: $("#destination").val(),
-            frequency: tFrequency,
-            nextArrival: moment(nextTrain).format("hh:mm"),
-            minutesAway: tMinutesTillTrain
-        }
-        // Add newTrain to allTrains array
-        allTrains.push(newTrain);
-        console.log(allTrains);
-        renderTrains();
-    }
 
-    renderTrains();
-    function renderTrains() {
-        $("#trains-display").empty();
-        for (var i = 0; i < allTrains.length; i++) {
-            var row = $('<div class="row py-2 border-top">');
-            var nameD = $('<div class="col-4">');
-            nameD.append(allTrains[i].name);
-            row.append(nameD);
-            var destinationD = $('<div class="col-2">');
-            destinationD.append(allTrains[i].destination);
-            row.append(destinationD);
-            var frequencyD = $('<div class="col-2">');
-            frequencyD.append(allTrains[i].frequency);
-            row.append(frequencyD);
-            var nextD = $('<div class="col-2">');
-            nextD.append(allTrains[i].nextArrival);
-            row.append(nextD);
-            var awayD = $('<div class="col-2">');
-            awayD.append(allTrains[i].minutesAway);
-            row.append(awayD);
-            $("#trains-display").append(row);
-        }
-        console.log(allTrains);
-    }
+        var row = $("<div class='row py-2 border-top'>");
 
+        $(row).append(
+            "<div class='col-4'>" + childSnapshot.val().name,
+            "<div class='col-2'>" + childSnapshot.val().destination,
+            "<div class='col-2'>" + childSnapshot.val().frequency,
+            "<div class='col-2'>" + moment(nextTrain).format("hh:mm"),
+            "<div class='col-2'>" + tMinutesTillTrain
+        )
 
+        $("#trains-display").append(row);
+    })
 
 // END OF JS
 });
