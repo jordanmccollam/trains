@@ -27,3 +27,15 @@ label {
 .btn-custom:hover {
     background-color: #e1d9c3;
 }
+
+@media screen and (max-width: 994px){
+    .train-section {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 773px) {
+    .train-section {
+        font-size: 8px;
+    }
+}
